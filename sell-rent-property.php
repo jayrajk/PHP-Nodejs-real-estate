@@ -75,7 +75,7 @@
                                 <div class="tab-content">
 
                                     <div class="tab-pane" id="step1">
-                                        <div class="row p-b-15  ">
+                                        <div class="row p-b-15 ">
                                             <h4 class="info-text"> Let's start with the basic information</h4>
                                             <div class="col-xs-12">
                                                 <strong>You are:</strong>
@@ -85,8 +85,8 @@
                                             </div>
                                             <div class="col-xs-12 padding-top-15">
                                                 <strong>List Property for:</strong>
-                                                <div class="btn-group bootstrap-select dropup">
-                                                    <select id="propt" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Property for" tabindex="-98">
+                                                <div class="dropdown-header">
+                                                    <select id="propt">
                                                         <option>Select</option>
                                                         <option id="sell" value="1">Sell</option>
                                                         <option value="2">Rent</option>
@@ -108,14 +108,24 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-2">
-                                                <strong>City:</strong>
-                                                <div class="btn-group bootstrap-select dropup">
-                                                    <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select your city" tabindex="-98">
+                                            <div class="col-sm-2 form-inline">
+                                                <div class="form-group">
+                                                    <label for="lunchBegins">City:</label>
+                                                    <select id="lunchBegins" class="form-control">
                                                         <option class="bs-title-option" value="">Select your city</option>
                                                         <option>Mumbai</option>
                                                         <option>Surat</option>
                                                     </select>
+                                                    <label for="project_name" >Project Name:</label>
+                                                    <input type="text" id="project_name" class="form-control" name="project_name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="project_name" >Project Name:</label>
+                                                    <input type="text" id="project_name" class="form-control" name="project_name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="locality">Locality:</label>
+                                                    <input type="text" class="form-control" name="locality" id="locality">
                                                 </div>
                                             </div>
                                         </div>
