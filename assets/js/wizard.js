@@ -88,40 +88,26 @@ function validateFirstStep() {
 
     $(".wizard-card form").validate({
         rules: {
-            firstname: "required",
-            lastname: "required",
-            email: {
-                required: true,
-                email: true
-            }
-
-            /*  other possible input validations
-             ,username: {
-             required: true,
-             minlength: 2
-             },
-             password: {
-             required: true,
-             minlength: 5
-             },
-             confirm_password: {
-             required: true,
-             minlength: 5,
-             equalTo: "#password"
-             },
-             
-             topic: {
-             required: "#newsletter:checked",
-             minlength: 2
-             },
-             agree: "required"
-             */
-
+            user_type: "required",
+            propt:{
+                selectcheck : true
+            },
+            property_ty: "required",
+            city:{
+                selectcheck : true
+            },
+            project_name:"required",
+            locality:"required",
+            address:"required",
         },
         messages: {
-            firstname: "Please enter your First Name",
-            lastname: "Please enter your Last Name",
-            email: "Please enter a valid email address",
+            user_type: "Please select user",
+            propt: "Please select property for",
+            property_ty: "Please select property type",
+            city: "Please select city",
+            project_name:"Please enter project name",
+            locality:"Please enter locality",
+            address:"Please enter address"
             /*   other posible validation messages
              username: {
              required: "Please enter a username",
@@ -157,15 +143,19 @@ function validateSecondStep() {
     //code here for second step
     $(".wizard-card form").validate({
         rules: {
+            bedrooms: "required"
         },
         messages: {
+            bedrooms: "Please select user"
+
         }
     });
 
     if (!$(".wizard-card form").valid()) {
-        console.log('invalid');
+        //form is invalid
         return false;
     }
+
     return true;
 
 }
