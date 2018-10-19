@@ -9,33 +9,12 @@ var server = http.createServer(app);
 var crypto = require('crypto'),
     algorithm = 'aes-256-ctr',
     pas = 'd6F3Efeq';
-
+var config = require('./config/dbconfig');
 app.use(bodyParser.json());
 app.use(bodyParser());
 app.use(cors());
 
-var con = mysql.createConnection({
-    host: "127.0.0.1",
-    user: "root",
-    password: "root",
-    database: "estate",
-    port: 3306
-});
-
-con.connect(function(err) {
-    if(err){
-        console.log(err);
-    }else{
-        console.log("Connected!");
-    }
-
-    /*var sql = "CREATE TABLE customers (name VARCHAR(255), address VARCHAR(255))";
-    con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log("Table created");
-    });*/
-});
-
+/*
 function mysqlPromise(sql) {
     debugger
     return new Promise(function (resolve, reject) {
@@ -94,7 +73,7 @@ app.post('/register',(req,res)=>{
     }
 });
 
-//Register
+//login
 app.post('/login',(req,res)=>{
 
     var lpassword = req.body.lpassword,lemail=req.body.lemail;
@@ -126,6 +105,7 @@ app.post('/sell-rent',(req,res)=> {
         return res.status(200).send({error:true,message:'Something went wrong'});
     })
 });
+*/
 
 server.listen(4000,()=>{
     console.log('Port 4000');
