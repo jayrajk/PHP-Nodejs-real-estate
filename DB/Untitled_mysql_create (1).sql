@@ -7,6 +7,8 @@ CREATE TABLE `User` (
 	`phone` INT(11) NOT NULL,
 	`household_income` INT NULL,
 	`occupation` varchar(15) NULL,
+	`createdAt` TIMESTAMP NOT NULL,
+	`updatedAt` TIMESTAMP NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
@@ -23,6 +25,8 @@ CREATE TABLE `Property` (
 	`project_name` varchar(50) NOT NULL,
 	`locality` varchar(20) NOT NULL,
 	`property_address` varchar(200) NOT NULL,
+	`createdAt` TIMESTAMP NOT NULL,
+	`updatedAt` TIMESTAMP NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
@@ -38,6 +42,8 @@ CREATE TABLE `Property_sub_category` (
 	`id` varchar(36) NOT NULL,
 	`title` varchar(40) NOT NULL,
 	`cat_id` varchar(36) NOT NULL,
+	`createdAt` TIMESTAMP NOT NULL,
+	`updatedAt` TIMESTAMP NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
@@ -69,6 +75,8 @@ CREATE TABLE `property_attributes` (
 	`furnishing_type` varchar(15) NOT NULL,
 	`description` TEXT NOT NULL,
 	`property_image` TEXT NOT NULL,
+	`createdAt` TIMESTAMP NOT NULL,
+	`updatedAt` TIMESTAMP NOT NULL,
 	PRIMARY KEY (`id`)
 );
 

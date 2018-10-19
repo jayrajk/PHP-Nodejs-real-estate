@@ -247,6 +247,7 @@
                                     swal(result.message,'','error');
                                 }else{
                                     swal(result.message,'','success');
+                                    window.location.href="index.php";
                                 }
                             }
                         })

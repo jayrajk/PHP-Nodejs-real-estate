@@ -516,27 +516,6 @@
         jQuery.validator.addMethod('selectcheck', function (value) {
             return (value != '0');
         });
-        /*$('#next').click(function(){
-            var pro= $('#propt').val();
-            if(pro==0){
-                alert("select property for");
-            }
-        })*/
-        /*$('#next').click(function (tab, navigation, index) {
-                if(index==1){
-                    $('#step1').validate({
-                        rules:{
-                            user_type: "required"
-                        },
-                        messages:{
-                            user_type:"Please select user"
-                        },
-                        submitHandler:function (form) {
-                            alert("hello");
-                        }
-                    })
-                }
-            })*/
     });
     $(document).ready(function () {
         var pro = $('input:radio[name=property_ty]:checked').val();
