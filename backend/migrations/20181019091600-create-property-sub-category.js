@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Property_sub_categories', {
@@ -12,7 +12,13 @@ module.exports = {
           allowNull: false,
       },
       cat_id: {
-        type: Sequelize.STRING(36),
+        type: Sequelize.UUID,
+          onDelete: 'CASCADE',
+          references: {
+              model: 'Property_categories',
+              key: 'id',
+              as: 'cat_id'
+          },
           allowNull: false,
       },
       createdAt: {

@@ -4,50 +4,50 @@ module.exports = (sequelize, DataTypes) => {
       id: {
           allowNull: false,
           primaryKey: true,
-          type: Sequelize.UUID,
+          type: DataTypes.UUID,
       },
       user_id: {
-          type: Sequelize.UUID,
+          type: DataTypes.UUID,
           allowNull: false,
       },
       user_type: {
-          type: Sequelize.STRING(10),
+          type: DataTypes.STRING(10),
           allowNull: false,
       },
       property_for: {
-          type: Sequelize.STRING(15),
+          type: DataTypes.STRING(15),
           allowNull: false,
       },
       sale_type: {
-          type: Sequelize.STRING(15),
+          type: DataTypes.STRING(15),
           allowNull: false,
       },
       property_cat_id: {
-          type: Sequelize.STRING(36),
+          type: DataTypes.UUID,
           allowNull: false,
       },
       property_sub_cat_id: {
-          type: Sequelize.STRING(36),
+          type: DataTypes.UUID,
           allowNull: false,
       },
       property_attr_id: {
-          type: Sequelize.STRING(36),
+          type: DataTypes.UUID,
           allowNull: false,
       },
       city: {
-          type: Sequelize.STRING(25),
+          type: DataTypes.STRING(25),
           allowNull: false,
       },
       project_name: {
-          type: Sequelize.STRING(50),
+          type: DataTypes.STRING(50),
           allowNull: false,
       },
       locality: {
-          type: Sequelize.STRING(20),
+          type: DataTypes.STRING(20),
           allowNull: false,
       },
       property_address: {
-          type: Sequelize.STRING(200),
+          type: DataTypes.STRING(200),
           allowNull: false,
       },
   }, {});

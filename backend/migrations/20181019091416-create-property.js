@@ -30,15 +30,33 @@ module.exports = {
                 allowNull: false,
             },
             property_cat_id: {
-                type: Sequelize.STRING(36),
+                type: Sequelize.UUID,
+                onDelete: 'CASCADE',
+                references: {
+                    model: 'Property_categories',
+                    key: 'id',
+                    as: 'property_cat_id'
+                },
                 allowNull: false,
             },
             property_sub_cat_id: {
-                type: Sequelize.STRING(36),
+                type: Sequelize.UUID,
+                onDelete: 'CASCADE',
+                references: {
+                    model: 'Property_sub_categories',
+                    key: 'id',
+                    as: 'property_sub_cat_id'
+                },
                 allowNull: false,
             },
             property_attr_id: {
-                type: Sequelize.STRING(36),
+                type: Sequelize.UUID,
+                onDelete: 'CASCADE',
+                references: {
+                    model: 'Property_attributes',
+                    key: 'id',
+                    as: 'property_attr_id'
+                },
                 allowNull: false,
             },
             city: {
