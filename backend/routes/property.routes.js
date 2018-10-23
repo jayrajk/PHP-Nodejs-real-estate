@@ -18,6 +18,6 @@ router.route('/search')
 router.route('/:id')
     .get(propertyController.getById)
     .put(propertyController.update)
-    .delete(propertyController.delete);
+    .delete(propertyController.deleteProperty);
 
 module.exports = router;

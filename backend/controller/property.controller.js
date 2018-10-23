@@ -18,7 +18,18 @@ module.exports = {
         return property.findOne({
             where: {
                 id: req.params.id,
-            }
+            },
+            include: [{
+                model: property_attributes,
+                exclude: ['createdAt', 'updatedAt']
+            },{
+                model: property_category,
+                exclude: ['createdAt', 'updatedAt']
+            },{
+                model: property_sub_category,
+                exclude: ['createdAt', 'updatedAt']
+            }],
+            exclude: ['createdAt', 'updatedAt']
         })
             .then((prop) => {
                 if (!prop) {
@@ -212,7 +223,7 @@ module.exports = {
             })
     },
 
-    delete(req, res, next){
+    deleteProperty(req, res, next){
         return property.delete({
             where:{
                 id: req.params.id

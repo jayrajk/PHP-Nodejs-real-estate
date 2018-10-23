@@ -13,6 +13,7 @@ module.exports = {
             where: {
                 email : email
             },
+            exclude: ['createdAt', 'updatedAt']
         })
             .then(user => {
                 if(user){
@@ -28,6 +29,7 @@ module.exports = {
             where: {
                 account_type: 0
             },
+            exclude: ['createdAt', 'updatedAt']
         })
         .then(users => res.status(200).send({data: users}))
         .catch(e => next(e));
@@ -38,7 +40,8 @@ module.exports = {
             where: {
                 id: req.params.id,
                 account_type: 0
-            }
+            },
+            exclude: ['createdAt', 'updatedAt']
         })
             .then((result) => {
                 if (!result) {
@@ -55,7 +58,8 @@ module.exports = {
             where: {
                 id: id,
                 account_type: 0
-            }
+            },
+            exclude: ['createdAt', 'updatedAt']
         })
             .then((result) => {
                 if (result) {
@@ -107,7 +111,8 @@ module.exports = {
           where:{
               email:req.body.email,
               password: req.body.password
-          }
+          },
+          exclude: ['createdAt', 'updatedAt']
       })
           .then((userData)=>{
                 return res.status(200).send('Login Successfully')

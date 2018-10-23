@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
           sourceKey: 'id'
       });
 
-      Property_category.belongTo(models.Property_sub_category,{
+      Property_category.hasMany(models.Property_sub_category,{
           foreignKey: 'cat_id',
           sourceKey: 'id'
       })
