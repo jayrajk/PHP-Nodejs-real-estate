@@ -7,6 +7,18 @@ router.route('/')
 // GET /api/users. all the users.
     .get(userController.getAll);
 
+router.route('/login')
+// POST /api/users/login To LOGIN into the system.
+    .post(userController.login);
+
+router.route('/register')
+// POST /api/users/register To Register in the system.
+    .post(userController.register);
+
+router.route('/checkuser')
+// POST /api/users/checkuser To checkuser in the system.
+    .post(userController.getByEmail);
+
 router.route('/profile')
 // GET /api/users/profile. all the users.
     .get(userController.getProfile);
