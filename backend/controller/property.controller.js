@@ -52,15 +52,28 @@ module.exports = {
     getByNameCity(req,res, next){
         return property.findAll({
             where:{
-                $or:[
+                $and:[
                     {
-                        project_name: req.body.project_name
+                        include: [
+                            {
+                                model: property_category,
+                                exclude: ['createdAt', 'updatedAt'],
+                            }
+                        ]
                     },
                     {
-                        city: req.body.city
+                        $or:[
+                            {
+                                project_name: req.body.project_name
+                            },
+                            {
+                                city: req.body.city
+                            },
+                        ]
                     }
                 ]
-            }
+            },
+            exclude: ['createdAt', 'updatedAt']
         })
             .then((prop)=>{
                 if(!prop){

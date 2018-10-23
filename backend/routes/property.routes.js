@@ -19,3 +19,5 @@ router.route('/:id')
     .get(propertyController.getById)
     .put(propertyController.update)
     .delete(propertyController.delete);
+
+module.exports = router;
