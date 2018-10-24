@@ -117,146 +117,16 @@
           <!-- Footer area-->
         <?php include "footer.php"; ?>
 
-
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-        <script src="assets/js/modernizr-2.6.2.min.js"></script>
-
-        <!--<script src="assets/js/jquery-1.10.2.min.js"></script>-->
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/js/bootstrap-select.min.js"></script>
-        <script src="assets/js/bootstrap-hover-dropdown.js"></script>
-
-        <script src="assets/js/easypiechart.min.js"></script>
-        <script src="assets/js/jquery.easypiechart.min.js"></script>
-
-        <script src="assets/js/owl.carousel.min.js"></script>
-        <script src="assets/js/wow.js"></script>
-
-        <script src="assets/js/icheck.min.js"></script>
-        <script src="assets/js/price-range.js"></script>
-
-        <script src="assets/js/main.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.0.0/sweetalert.min.js"></script>
-        <script type="text/javascript">
-        $(document).ready(function () {
-            $('#registerBtn').click(function () {
-
-                $('#registerForm').validate({
-                    rules:{
-                        name: 'required',
-                        email:{
-                            required:true,
-                            email:true
-                        },
-                        password:{
-                            required:true,
-                            minlength:6
-                        },
-                        phone:{
-                            required:true,
-                            minlength:10,
-                            maxlength:10
-                        }
-                    },
-                    messages:{
-                        name: "Please enter your name",
-                        email: {
-                            required:"Please enter your email id",
-                            email:"Please enter valid email id"
-                        },
-                        password:{
-                            required: "Please enter your password",
-                            minlength:"Please enter atleast 6 character"
-                        },
-                        phone:{
-                            required:"Enter your phone number",
-                            minlength:"Enter valid phone number",
-                            maxlength:"Enter valid phone number"
-                        }
-                    },
-                    submitHandler: function (form) {
-                        var name =$('#name').val();
-                        var email = $('#email').val();
-                        var password = $('#password').val();
-                        var phone = $('#phone').val();
-                        var body = {
-                            name: name,
-                            email: email,
-                            password: password,
-                            phone: phone
-                        };
-                        $.ajax({
-                            url:'http://127.0.0.1:4000/register',
-                            type: 'POST',
-                            data: JSON.stringify(body),
-                            dataType: 'JSON',
-                            contentType: 'application/json',
-                            crossDomain: true,
-                            success:function(result){
-                                if(result.error==true){
-                                    swal(result.message,'','error');
-                                }else{
-                                    swal(result.message,'','success');
-                                }
-                            }
-                        })
-                    }
-                });
-            });
-
-            $('#loginBtn').click(function () {
-
-                $('#loginForm').validate({
-                    rules:{
-                        lemail:{
-                            required:true,
-                            email:true
-                        },
-                        lpassword:{
-                            required:true,
-                            minlength:6
-                        }
-                    },
-                    messages:{
-                        lemail: {
-                            required:"Please enter your email id",
-                            email:"Please enter valid email id"
-                        },
-                        lpassword:{
-                            required: "Please enter your password",
-                            minlength:"Please enter atleast 6 character"
-                        }
-                    },
-                    submitHandler: function (form) {
-                        var lemail = $('#lemail').val();
-                        var lpassword = $('#lpassword').val();
-                        var body = {
-                            lemail: lemail,
-                            lpassword: lpassword,
-                        };
-                        $.ajax({
-                            url:'http://127.0.0.1:4000/login',
-                            type: 'POST',
-                            data: JSON.stringify(body),
-                            dataType: 'JSON',
-                            contentType: 'application/json',
-                            crossDomain: true,
-                            success:function(result){
-                                if(result.error==true){
-                                    swal(result.message,'','error');
-                                }else{
-                                    swal(result.message,'','success');
-                                    window.location.href="index.php";
-                                }
-                            }
-                        })
-                    }
-                });
-            });
-        })
-
-        </script>
+    <script type="text/javascript">
+        if(sessionStorage.getItem('username') != null){
+            $("#login").hide();
+            $("#logout").show();
+            window.history.back();
+        }else if(sessionStorage.getItem('username') == null){
+            $("#login").show();
+            $("#logout").hide();
+        }
+    </script>
 
     </body>
 </html>

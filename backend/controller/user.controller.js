@@ -11,15 +11,15 @@ module.exports = {
     getByEmail(req,res) {
         return user.findOne({
             where: {
-                email : email
+                email : req.body.email
             },
             exclude: ['createdAt', 'updatedAt']
         })
             .then(user => {
                 if(user){
-                    return res.status(404).send('Already exists');
+                    return res.status(200).send({error:true,message:'User already exists'});
                 }else{
-                    return res.status(200).send('Not exists');
+                    return res.status(200).send({error:false,message:'Not exists'});
                 }
             })
     },
@@ -31,7 +31,9 @@ module.exports = {
             },
             exclude: ['createdAt', 'updatedAt']
         })
-        .then(users => res.status(200).send({data: users}))
+        .then(users => {
+            return res.status(200).send({error:false,message:'users found',data: users})
+        })
         .catch(e => next(e));
     },
 
@@ -45,10 +47,10 @@ module.exports = {
         })
             .then((result) => {
                 if (!result) {
-                    const err = new APIError('No such user exists!', httpStatus.NOT_FOUND, true);
-                    return Promise.reject(err);
+                   return res.status(404).send({error:true,message:'user not found'});
+                }else{
+                    return res.status(200).send({error:false,message:'user found',data: result});
                 }
-                res.status(200).send({data: result});
             })
     },
 
@@ -63,10 +65,10 @@ module.exports = {
         })
             .then((result) => {
                 if (result) {
-                    res.status(200).send({data: result});
+                    return res.status(200).send({error:false,message:'user found',data: result});
+                }else{
+                    return res.status(404).send({error:true,message:'user not found',data: result});
                 }
-                const err = new APIError('No such user exists!', httpStatus.NOT_FOUND, true);
-                return Promise.reject(err);
             })
     },
 
@@ -84,25 +86,25 @@ module.exports = {
                 }
             })
             .then((result) => {
-               return res.status(200).send({Status: 'Updated Successfully'});
+               return res.status(200).send({error:false,message: 'Updated Successfully'});
             })
-            .catch(() => {
-                return Promise.reject(new APIError('User not found', httpStatus.NOT_FOUND, true));
+            .catch((err) => {
+                return res.status(404).send({error:true,message: err});
             })
     },
 
     deleteUser(req, res, next) {
-        return user.delete( {
+        return user.destroy( {
             where: {
                 id: req.params.id,
                 account_type: 0
             }
         })
             .then((result) => {
-                return res.status(200).send('User Deleted Successfully');
+                return res.status(200).send({error:false,message:'User Deleted Successfully'});
             })
-            .catch(() => {
-                return Promise.reject(new APIError('User not found', httpStatus.NOT_FOUND, true));
+            .catch((err) => {
+                return res.status(200).send({error:true,message:err});
             })
     },
 
@@ -115,26 +117,26 @@ module.exports = {
           exclude: ['createdAt', 'updatedAt']
       })
           .then((userData)=>{
-                return res.status(200).send('Login Successfully')
-          })
-          .catch((err)=>{
-              return res.status(404).send('Invalid Email or Password')
+              if(userData){
+                  return res.status(200).send({error:false,message:'Login Successfully',data:{id:userData.id,email:userData.email,name:userData.name}})
+              }else{
+                  return res.status(200).send({error:true,message:'Invalid emailid or password'})
+              }
           })
     },
 
     register(req,res,next) {
         return user.create({
-            account_type: 0,
             name: req.body.name,
-            phone: req.body.phone,
             email: req.body.email,
+            phone: req.body.phone,
             password: req.body.password,
         })
             .then((savedUser) => {
-                return res.status(200).send('Register Successfully');
+                return res.status(200).send({error:false,message:'Register Successfully',data:{id:savedUser.id,email:savedUser.email,name:savedUser.name}})
             })
             .catch((error) => {
-                return Promise.reject(new APIError('Something wrong in Registration', httpStatus.BAD_REQUEST, true));
+                return res.status(200).send({error:true,message:'Error while registering'});
             })
     }
 };

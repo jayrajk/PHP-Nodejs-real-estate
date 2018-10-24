@@ -2,11 +2,12 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Property_sub_categories', {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.UUID
-      },
+        id: {
+            allowNull: false,
+            primaryKey: true,
+            type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4
+        },
       title: {
         type: Sequelize.STRING(40),
           allowNull: false,

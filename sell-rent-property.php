@@ -481,12 +481,12 @@
 <!-- Footer area-->
 <?php include "footer.php"; ?>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="assets/js/jquery.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>-->
 <!--<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>-->
 <!--<script src="assets/js/vendor/modernizr-2.6.2.min.js"></script>-->
 <!--<script src="assets/js//jquery-1.10.2.min.js"></script>-->
-<script src="bootstrap/js/bootstrap.min.js"></script>
+<!--<script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/js/bootstrap-select.min.js"></script>
 <script src="assets/js/bootstrap-hover-dropdown.js"></script>
 <script src="assets/js/easypiechart.min.js"></script>
@@ -498,7 +498,7 @@
 <script src="assets/js/price-range.js"></script>
 <script src="assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
 <script src="assets/js/jquery.validate.min.js"></script>
-<script src="assets/js/wizard.js"></script>
+<script src="assets/js/wizard.js"></script>-->
 
 <script src="assets/js/main.js"></script>
 

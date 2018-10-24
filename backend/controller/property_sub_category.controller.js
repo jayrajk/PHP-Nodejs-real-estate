@@ -23,10 +23,10 @@ module.exports={
         })
             .then((result) => {
                 if (!result) {
-                    const err = new APIError('No such sub category', httpStatus.NOT_FOUND, true);
-                    return Promise.reject(err);
+                    return res.status(404).send({error:true,message:'Sub Category not found'});
+                }else {
+                    return res.status(200).send({error: false, message: 'Sub Category found', data: result});
                 }
-                res.status(200).send({data: result});
             })
     },
 
@@ -43,10 +43,10 @@ module.exports={
         })
             .then((result) => {
                 if (!result) {
-                    const err = new APIError('No such sub category', httpStatus.NOT_FOUND, true);
-                    return Promise.reject(err);
+                    return res.status(404).send({error:true,message:'Sub Category not found'});
+                }else{
+                    return res.status(200).send({error:false,message:'Sub Category found',data:result});
                 }
-                res.status(200).send({data: result});
             })
     },
 
@@ -60,10 +60,10 @@ module.exports={
         })
             .then((result) => {
                 if (!result) {
-                    const err = new APIError('No such sub category', httpStatus.NOT_FOUND, true);
-                    return Promise.reject(err);
+                    return res.status(404).send({error:true,message:'Sub Categories not found'});
+                }else{
+                    return res.status(200).send({error:false,message:'Sub Categories found'});
                 }
-                res.status(200).send({data: result});
             })
     },
 
@@ -73,10 +73,10 @@ module.exports={
             cat_id: req.body.cat_id
         })
             .then((result) => {
-                res.status(200).send('Added Successfully');
+                return res.status(200).send({error:false,message:'Sub Category added'});
             })
             .catch(()=>{
-                const err = new APIError('No such sub category', httpStatus.NOT_FOUND, true);
+                const err = new APIError('Error while adding sub category', httpStatus.NOT_FOUND, true);
                 return Promise.reject(err);
             })
     },
@@ -91,10 +91,10 @@ module.exports={
             }
         })
             .then((result) => {
-                res.status(200).send('Updated Successfully');
+                return res.status(200).send({error:false,message:'Sub Category updated successfully'});
             })
             .catch(()=>{
-                const err = new APIError('No such sub category', httpStatus.NOT_FOUND, true);
+                const err = new APIError('Error while updating sub category ', httpStatus.NOT_FOUND, true);
                 return Promise.reject(err);
             })
     },
@@ -106,7 +106,7 @@ module.exports={
             }
         })
             .then((result) => {
-                res.status(200).send('Deleted Successfully');
+                return res.status(200).send({error:false,message:'Sub Category deleted successfully'});
             })
             .catch(()=>{
                 const err = new APIError('No such sub category', httpStatus.NOT_FOUND, true);

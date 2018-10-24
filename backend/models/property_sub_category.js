@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
       id: {
           allowNull: false,
           primaryKey: true,
-          type: DataTypes.UUID
+          type: DataTypes.UUID,
+          defaultValue: DataTypes.UUIDV4
       },
       title: {
           type: DataTypes.STRING(40),
@@ -22,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
           sourceKey: 'id'
       });
 
-      Property_sub_category.belongTo(models.Property_category,{
+      Property_sub_category.belongsTo(models.Property_category,{
           foreignKey: 'cat_id',
           sourceKey: 'id'
       });

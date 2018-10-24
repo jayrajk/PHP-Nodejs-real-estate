@@ -101,3 +101,187 @@
     </div>
 
 </div>
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="assets/js/modernizr-2.6.2.min.js"></script>
+
+<!--<script src="assets/js/jquery-1.10.2.min.js"></script>-->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/bootstrap-select.min.js"></script>
+<script src="assets/js/bootstrap-hover-dropdown.js"></script>
+
+<script src="assets/js/easypiechart.min.js"></script>
+<script src="assets/js/jquery.easypiechart.min.js"></script>
+
+<script src="assets/js/owl.carousel.min.js"></script>
+<script src="assets/js/wow.js"></script>
+
+<script src="assets/js/icheck.min.js"></script>
+<script src="assets/js/price-range.js"></script>
+
+<script src="assets/js/price-range.js"></script>
+<script src="assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
+<script src="assets/js/wizard.js"></script>
+
+<script src="assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+<script src="assets/js/components/md5.js"></script>
+<script src="assets/js/components/md5-min.js"></script>
+<script src="assets/js/rollups/md5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.0.0/sweetalert.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.5.0/js/md5.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js">-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#registerBtn').click(function () {
+
+            $('#registerForm').validate({
+                rules:{
+                    name: 'required',
+                    email:{
+                        required:true,
+                        email:true
+                    },
+                    password:{
+                        required:true,
+                        minlength:6
+                    },
+                    phone:{
+                        required:true,
+                        minlength:10,
+                        maxlength:10
+                    }
+                },
+                messages:{
+                    name: "Please enter your name",
+                    email: {
+                        required:"Please enter your email id",
+                        email:"Please enter valid email id"
+                    },
+                    password:{
+                        required: "Please enter your password",
+                        minlength:"Please enter atleast 6 character"
+                    },
+                    phone:{
+                        required:"Enter your phone number",
+                        minlength:"Enter valid phone number",
+                        maxlength:"Enter valid phone number"
+                    }
+                },
+                submitHandler: function (form) {
+                    var name =$('#name').val();
+                    var email = $('#email').val();
+                    var password = CryptoJS.MD5($('#password').val()).toString();
+                    var phone = $('#phone').val();
+                    var body = {
+                        name: name,
+                        email: email,
+                        password: password,
+                        phone: phone
+                    };
+                    var check = {
+                        email:email
+                    };
+                    $.ajax({
+                        url:'http://127.0.0.1:4000/api/users/checkuser',
+                        type: 'POST',
+                        data: JSON.stringify(check),
+                        dataType: 'JSON',
+                        contentType: 'application/json',
+                        crossDomain: true,
+                        success:function(result){
+                            if(result.error==true){
+                                swal(result.message,'','error');
+                            }else{
+                                $.ajax({
+                                    url:'http://127.0.0.1:4000/api/users/register',
+                                    type: 'POST',
+                                    data: JSON.stringify(body),
+                                    dataType: 'JSON',
+                                    contentType: 'application/json',
+                                    crossDomain: true,
+                                    success:function(result){
+                                        if(result.error==true){
+                                            swal(result.message,'','error');
+                                        }else{
+                                            swal(result.message,'','success');
+                                        }
+                                    }
+                                })
+                            }
+                        }
+                    })
+                }
+            });
+        });
+
+        $('#loginBtn').click(function () {
+
+            $('#loginForm').validate({
+                rules:{
+                    lemail:{
+                        required:true,
+                        email:true
+                    },
+                    lpassword:{
+                        required:true,
+                        minlength:6
+                    }
+                },
+                messages:{
+                    lemail: {
+                        required:"Please enter your email id",
+                        email:"Please enter valid email id"
+                    },
+                    lpassword:{
+                        required: "Please enter your password",
+                        minlength:"Please enter atleast 6 character"
+                    }
+                },
+                submitHandler: function (form) {
+                    var lemail = $('#lemail').val();
+                    var lpassword = CryptoJS.MD5($('#lpassword').val()).toString();
+                    var body = {
+                        email: lemail,
+                        password: lpassword,
+                    };
+                    $.ajax({
+                        url:'http://127.0.0.1:4000/api/users/login',
+                        type: 'POST',
+                        data: JSON.stringify(body),
+                        dataType: 'JSON',
+                        contentType: 'application/json',
+                        crossDomain: true,
+                        success:function(result){
+                            if(result.error==true){
+                                swal(result.message,'','error');
+                            }else{
+                                swal('Welcome '+result.data.name.split(' ')[0],'','success');
+                                sessionStorage.setItem('username',result.data.name.split(' ')[0]);
+                                window.location.href="index.php";
+                            }
+                        }
+                    })
+                }
+            });
+        });
+
+        if(sessionStorage.getItem('username') != null){
+            $("#login").hide();
+            $("#logout").show();
+
+        }else if(sessionStorage.getItem('username') == null){
+            $("#login").show();
+            $("#logout").hide();
+        }
+
+        $('#logout').click(function () {
+            sessionStorage.removeItem('username');
+            window.location.href = "register.php";
+        })
+    })
+
+</script>

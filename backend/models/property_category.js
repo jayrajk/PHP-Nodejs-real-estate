@@ -4,10 +4,11 @@ module.exports = (sequelize, DataTypes) => {
       id: {
           allowNull: false,
           primaryKey: true,
-          type: Sequelize.UUID
+          type: DataTypes.UUID,
+          defaultValue: DataTypes.UUIDV4
       },
       title: {
-          type: Sequelize.STRING(50),
+          type: DataTypes.STRING(50),
           allowNull: false,
       }
   }, {});

@@ -33,10 +33,10 @@ module.exports = {
         })
             .then((prop) => {
                 if (!prop) {
-                    const err = new APIError('No such property exists!', httpStatus.NOT_FOUND, true);
-                    return Promise.reject(err);
+                    return res.status(404).send({error:true,message:'Property not found'});
+                }else {
+                    return res.status(200).send({error:true,message:'Property found',data:prop});
                 }
-                return res.send(prop);
             })
     },
 
@@ -56,7 +56,7 @@ module.exports = {
                 exclude: ['createdAt', 'updatedAt']
             }]
         })
-            .then(users => res.status(200).send({data: users}))
+            .then(users => { return res.status(200).send({error:false,data: users}) })
             .catch(e => next(e));
     },
 
@@ -88,10 +88,10 @@ module.exports = {
         })
             .then((prop)=>{
                 if(!prop){
-                    const err = new APIError('Projects not found', httpStatus.NOT_FOUND, true)
-                    return Promise.reject(err);
+                    return res.status(404).send({error:true,message:'Property not found'})
+                }else{
+                    return res.status(200).send({error:true,message:'Property found',data:prop})
                 }
-                return res.send(prop);
             })
     },
 
@@ -141,12 +141,16 @@ module.exports = {
                     })
                         .then((prop)=>{
                             if(prop !== null){
-                                res.status(200).send({Status: 'Added Successfully'});
+                                return res.status(200).send({error:false,message: 'Added Successfully'});
+                            }else{
+                                return res.status(404).send({error:true,message: 'Error while adding property'});
                             }
                         })
                         .catch(()=>{
                             return Promise.reject(new APIError('No proper data inserted', httpStatus.NOT_FOUND, true))
                         })
+                }else{
+                    return res.status(404).send({error:true,message: 'Error while adding property'});
                 }
             })
             .catch(() => {
@@ -210,12 +214,16 @@ module.exports = {
                     })
                         .then((prop)=>{
                             if(prop !== null){
-                                res.status(200).send({Status: 'Added Successfully'});
+                                return res.status(200).send({error:false,message: 'Property Updated Successfully'});
+                            }else{
+                                return res.status(404).send({error:true,message: 'Error while updating property'});
                             }
                         })
                         .catch(()=>{
                             return Promise.reject(new APIError('No proper data inserted', httpStatus.NOT_FOUND, true))
                         })
+                }else{
+                    return res.status(404).send({error:true,message: 'Error while updating property'});
                 }
             })
             .catch(() => {
@@ -224,13 +232,13 @@ module.exports = {
     },
 
     deleteProperty(req, res, next){
-        return property.delete({
+        return property.destroy({
             where:{
                 id: req.params.id
             }
         })
             .then((result) => {
-                res.send('Property Deleted Successfully');
+                return res.status(200).send({error:false,message:'Property Deleted Successfully'});
             })
             .catch(() => {
                 return Promise.reject(new APIError('Property not found', httpStatus.NOT_FOUND, true));

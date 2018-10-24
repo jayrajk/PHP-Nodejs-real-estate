@@ -1,4 +1,4 @@
-<div id="preloader">
+    <div id="preloader">
     <div id="status">&nbsp;</div>
 </div>
 <!-- Body content -->
@@ -38,7 +38,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse yamm" id="navigation">
             <div class="button navbar-right">
-                <button class="navbar-btn nav-button wow bounceInRight login" onclick=" window.open('register.php')" data-wow-delay="0.4s">Login</button>
+                <button class="navbar-btn nav-button wow bounceInRight login" onclick=" window.open('register.php')" id="login" data-wow-delay="0.4s">Login</button>
+                <button class="navbar-btn nav-button wow bounceInRight logout" id="logout" data-wow-delay="0.4s">Logout</button>
             </div>
             <ul class="main-nav nav navbar-nav navbar-right">
                 <li class="wow fadeInDown" data-wow-delay="0.1s"><a href="index.php" class="">Home</a></li>

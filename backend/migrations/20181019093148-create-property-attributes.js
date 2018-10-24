@@ -2,11 +2,12 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Property_attributes', {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.UUID
-      },
+        id: {
+            allowNull: false,
+            primaryKey: true,
+            type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4
+        },
       built_up_area: {
         type: Sequelize.FLOAT,
           allowNull: true,

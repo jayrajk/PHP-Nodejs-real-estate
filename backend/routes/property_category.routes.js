@@ -9,7 +9,7 @@ router.route('/')
 
 router.route('/insert')
 // POST /api/property/insert To post the property
-    .post(propertyController.insert);
+    .post(propertyCategoryController.insert);
 
 router.route('/search')
 // POST /api/property/search To search the property

@@ -19,10 +19,11 @@ module.exports={
         })
             .then((result) => {
                 if (!result) {
-                    const err = new APIError('No such category', httpStatus.NOT_FOUND, true);
-                    return Promise.reject(err);
+                    return res.status(404).send({error:true,message: 'Category not found'});
+
+                }else{
+                    return res.status(200).send({error:false,message:'Category found',data: result});
                 }
-                res.status(200).send({data: result});
             })
     },
 
@@ -35,10 +36,10 @@ module.exports={
         })
             .then((result) => {
                 if (!result) {
-                    const err = new APIError('No such category', httpStatus.NOT_FOUND, true);
-                    return Promise.reject(err);
+                    return res.status(404).send({error:true,message:'Category Not found'});
+                }else {
+                    return res.status(200).send({error:false,message:'Category found',data: result});
                 }
-                res.status(200).send({data: result});
             })
     },
 
@@ -48,10 +49,10 @@ module.exports={
         })
             .then((result) => {
                 if (!result) {
-                    const err = new APIError('No such category', httpStatus.NOT_FOUND, true);
-                    return Promise.reject(err);
+                    return res.status(404).send({error:true,message:'Categories not found'});
+                }else{
+                    return res.status(200).send({error:false,message:'Categories found',data: result});
                 }
-                res.status(200).send({data: result});
             })
     },
 
@@ -60,10 +61,10 @@ module.exports={
             title: req.body.title
         })
             .then((result) => {
-                res.status(200).send('Added Successfully');
+                return res.status(200).send({error:false,message:'Category added successfully',data: result});
             })
             .catch(()=>{
-                const err = new APIError('No such category', httpStatus.NOT_FOUND, true);
+                const err = new APIError('Error while adding category', httpStatus.NOT_FOUND, true);
                 return Promise.reject(err);
             })
     },
@@ -77,25 +78,25 @@ module.exports={
             }
         })
             .then((result) => {
-                res.status(200).send('Updated Successfully');
+                return res.status(200).send({error:false,message:'Category updated successfully',data: result});
             })
             .catch(()=>{
-                const err = new APIError('No such category', httpStatus.NOT_FOUND, true);
+                const err = new APIError('No such category found', httpStatus.NOT_FOUND, true);
                 return Promise.reject(err);
             })
     },
 
     deleteCategory(req,res){
-        return property_cat.delete({
+        return property_cat.destroy({
             where:{
                 id: req.params.id
             }
         })
             .then((result) => {
-                res.status(200).send('Deleted Successfully');
+                return res.status(200).send({error:false,message:'Category deleted successfully'});
             })
             .catch(()=>{
-                const err = new APIError('No such category', httpStatus.NOT_FOUND, true);
+                const err = new APIError('No such category found', httpStatus.NOT_FOUND, true);
                 return Promise.reject(err);
             })
     }
