@@ -46,7 +46,7 @@
             <div class="container">
                 <div class="row">
                     <div class="page-head-content">
-                        <h1 class="page-title">Hello : <span class="orange strong">Kimaro kyoto</span></h1>               
+                        <h1 class="page-title" id="title">Hello : <span class="orange strong" ></span></h1>
                     </div>
                 </div>
             </div>
@@ -62,90 +62,44 @@
                         <form action="" method="">
                             <div class="profiel-header">
                                 <h3>
-                                    <b>BUILD</b> YOUR PROFILE <br>
-                                    <small>This information will let us know more about you.</small>
+                                    <b>YOUR PROFILE </b><br>
                                 </h3>
                                 <hr>
                             </div>
 
                             <div class="clear">
-                                <div class="col-sm-3 col-sm-offset-1">
-                                    <div class="picture-container">
-                                        <div class="picture">
-                                            <img src="assets/img/avatar.png" class="picture-src" id="wizardPicturePreview" title=""/>
-                                            <input type="file" id="wizard-picture">
-                                        </div>
-                                        <h6>Choose Picture</h6>
-                                    </div>
-                                </div>
 
                                 <div class="col-sm-3 padding-top-25">
 
                                     <div class="form-group">
-                                        <label>First Name <small>(required)</small></label>
-                                        <input name="firstname" type="text" class="form-control" placeholder="Andrew...">
+                                        <label>Full Name </label>
+                                        <input name="rfullname" id="rfullname" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label>Last Name <small>(required)</small></label>
-                                        <input name="lastname" type="text" class="form-control" placeholder="Smith...">
-                                    </div> 
+                                        <label>Email </label>
+                                        <input name="remail" id="remail" type="email" class="form-control">
+                                    </div>
                                     <div class="form-group">
-                                        <label>Email <small>(required)</small></label>
-                                        <input name="email" type="email" class="form-control" placeholder="andrew@email@email.com.com">
-                                    </div> 
+                                        <label>Phone Number</label>
+                                        <input name="rphone" id="rphone" type="number" class="form-control">
+                                    </div>
                                 </div>
                                 <div class="col-sm-3 padding-top-25">
                                     <div class="form-group">
-                                        <label>Password <small>(required)</small></label>
-                                        <input name="Password" type="password" class="form-control">
+                                        <label>Household Income </label>
+                                        <input name="household" id="household" type="number" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label>Confirm password : <small>(required)</small></label>
-                                        <input type="password" class="form-control">
-                                    </div>
-                                </div>  
-
-                            </div>
-
-                            <div class="clear">
-                                <br>
-                                <hr>
-                                <br>
-                                <div class="col-sm-5 col-sm-offset-1">
-                                    <div class="form-group">
-                                        <label>Facebook :</label>
-                                        <input name="Facebook" type="text" class="form-control" placeholder="https://facebook.com/user">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Twitter :</label>
-                                        <input name="Twitter" type="text" class="form-control" placeholder="https://Twitter.com/@user">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Website :</label>
-                                        <input name="website" type="text" class="form-control" placeholder="https://yoursite.com/">
-                                    </div>
-                                </div>  
-
-                                <div class="col-sm-5">
-                                    <div class="form-group">
-                                        <label>Public email :</label>
-                                        <input name="p-email" type="email" class="form-control" placeholder="p-email@rmail.com">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Phone :</label>
-                                        <input name="Phone" type="text" class="form-control" placeholder="+1 9090909090">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>FAX :</label>
-                                        <input name="FAX" type="text" class="form-control" placeholder="+1 9090909090">
+                                        <label>Occupation</label>
+                                        <input name="occupation" id="occupation" type="text" class="form-control">
                                     </div>
                                 </div>
- 
+
                             </div>
                     
                             <div class="col-sm-5 col-sm-offset-1">
                                 <br>
-                                <input type='button' class='btn btn-finish btn-primary' name='finish' value='Finish' />
+                                <input type='button' class='btn btn-finish btn-primary' name='save' id="save" value='Save' />
                             </div>
                             <br>
                     </form>
@@ -159,7 +113,74 @@
 
           <!-- Footer area-->
        <?php include "footer.php";?>
+        <script type="text/javascript">
+         $(document).ready(function () {
+             if(sessionStorage.getItem('username') != null){
+                 $("#login").hide();
+                 $("#userprofile").show();
 
+                 var body = {
+                     id: sessionStorage.getItem('userid')
+                 };
+                 $.ajax({
+                     url:'http://127.0.0.1:4000/api/users/profile',
+                     type: 'POST',
+                     data: JSON.stringify(body),
+                     dataType: 'JSON',
+                     contentType: 'application/json',
+                     crossDomain: true,
+                     success:function(result){
+                         if(result.error==true){
+                             swal(result.message,'','error');
+                         }else{
+                             $('#rfullname').val(result.data.name);
+                             $('#remail').val(result.data.email);
+                             $('#rphone').val(result.data.phone);
+                             $('#household').val(result.data.household_income);
+                             $('#occupation').val(result.data.occupation);
+                             sessionStorage.setItem('username',result.data.name);
+                             sessionStorage.setItem('useremail',result.data.email);
+                         }
+                     }
+                 })
+             }else if(sessionStorage.getItem('username') == null){
+                 $("#login").show();
+                 $("#userprofile").hide();
+                 window.stop();
+                 window.history.back();
+             }
+
+             $('#title').replaceWith('<h1 class="page-title"><span class="orange strong" >'+sessionStorage.getItem('username')+'</span></h1>');
+
+
+             $('#save').click(function () {
+                 var body = {
+                    id: sessionStorage.getItem('userid'),
+                    name : $('#rfullname').val(),
+                    email : $('#remail').val(),
+                    phone : $('#rphone').val(),
+                    household_income: $('#household').val(),
+                    occupation: $('#occupation').val()
+                 };
+                 $.ajax({
+                     url:'http://127.0.0.1:4000/api/users/update',
+                     type: 'PUT',
+                     data: JSON.stringify(body),
+                     dataType: 'JSON',
+                     contentType: 'application/json',
+                     crossDomain: true,
+                     success:function(result){
+                         if(result.error==true){
+                             swal(result.message,'','error');
+                         }else{
+                             swal(result.message,'','success');
+                         }
+                     }
+                 })
+             })
+         })
+
+        </script>
 
 </body>
 </html>

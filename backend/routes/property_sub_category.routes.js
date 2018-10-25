@@ -15,6 +15,9 @@ router.route('/search')
 // POST /api/propertysubcat/search To search the propertysubcategory
     .post(propertySubCategoryController.getByName);
 
+router.route('/searchBycategory')
+    .post(propertySubCategoryController.getAllByCat);
+
 router.route('/:id')
     .get(propertySubCategoryController.getById)
     .put(propertySubCategoryController.update)

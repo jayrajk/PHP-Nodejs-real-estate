@@ -113,14 +113,14 @@
                                     <div class="col-sm-12">
                                         <div class="col-sm-3">
                                             <label for="property_ty">Property Type:</label><br>
-                                            <input type="radio" name="property_ty" id="property_ty" value="Residential">
+                                            <input type="radio" class="form-control" name="property_ty" id="property_ty" value="41cc2ccf-3852-40be-a85a-113bc9393185">
                                             <small>Residential</small>
-                                            <input type="radio" name="property_ty" id="property_ty" value="Commercial">
+                                            <input type="radio" class="form-control" name="property_ty" id="property_ty" value="fb9a7754-80f8-4b56-b587-8aebf854db38">
                                             <small>Commercial</small>
                                         </div>
                                         <div class="col-sm-3">
-                                            <label for="category">Select Type:</label>
-                                            <select id="category" class="form-control">
+                                            <label for="subcategory">Select Type:</label>
+                                            <select id="subcategory" class="form-control">
                                                 <option class="bs-title-option"></option>
                                             </select>
                                         </div>
@@ -481,27 +481,6 @@
 <!-- Footer area-->
 <?php include "footer.php"; ?>
 
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="assets/js/jquery.min.js"></script>-->
-<!--<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>-->
-<!--<script src="assets/js/vendor/modernizr-2.6.2.min.js"></script>-->
-<!--<script src="assets/js//jquery-1.10.2.min.js"></script>-->
-<!--<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/js/bootstrap-select.min.js"></script>
-<script src="assets/js/bootstrap-hover-dropdown.js"></script>
-<script src="assets/js/easypiechart.min.js"></script>
-<script src="assets/js/jquery.easypiechart.min.js"></script>
-<script src="assets/js/owl.carousel.min.js"></script>
-<script src="assets/js/wow.js"></script>
-<script src="assets/js/icheck.min.js"></script>
-
-<script src="assets/js/price-range.js"></script>
-<script src="assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
-<script src="assets/js/jquery.validate.min.js"></script>
-<script src="assets/js/wizard.js"></script>-->
-
-<script src="assets/js/main.js"></script>
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('#div_sell').hide();
@@ -516,18 +495,17 @@
         jQuery.validator.addMethod('selectcheck', function (value) {
             return (value != '0');
         });
-    });
-    $(document).ready(function () {
-        var pro = $('input:radio[name=property_ty]:checked').val();
-        console.log(pro);
-        $('input[type=radio]').change(function () {
-            alert('hello');
-            if ($(this).val() == "Residential") {
+
+        // function propType() {
+        //     var pro = $('input:radio[name=property_ty]:checked').val();
+        //     console.log(pro);
+        //     // $('#property_ty').change(function () {
+        //     //     alert('hello');
                 var body = {
-                    cat_id: $(this).val()
+                    cat_id: $('#property_ty').val()
                 };
                 $.ajax({
-                    url: 'http://127.0.0.1:4000/sell-rent',
+                    url: 'http://127.0.0.1:4000/api/subcategory/searchBycategory',
                     type: 'POST',
                     data: JSON.stringify(body),
                     dataType: 'JSON',
@@ -537,15 +515,13 @@
                         if (result.error == true) {
                             alert(result.message);
                         } else {
-                            alert(result.data);
+                            $('#subcategory select').empty();
                         }
                     }
                 })
-            } else if ($(this).val() == "Commercial") {
-
-            }
-        })
-    })
+            // })
+        // }
+    });
 </script>
 
 </body>

@@ -13,7 +13,9 @@ module.exports = {
             where: {
                 email : req.body.email
             },
-            exclude: ['createdAt', 'updatedAt']
+            attributes:{
+                exclude: ['createdAt', 'updatedAt']
+            }
         })
             .then(user => {
                 if(user){
@@ -29,7 +31,9 @@ module.exports = {
             where: {
                 account_type: 0
             },
-            exclude: ['createdAt', 'updatedAt']
+            attributes:{
+                exclude: ['createdAt', 'updatedAt']
+            }
         })
         .then(users => {
             return res.status(200).send({error:false,message:'users found',data: users})
@@ -43,7 +47,9 @@ module.exports = {
                 id: req.params.id,
                 account_type: 0
             },
-            exclude: ['createdAt', 'updatedAt']
+            attributes:{
+                exclude: ['createdAt', 'updatedAt']
+            }
         })
             .then((result) => {
                 if (!result) {
@@ -55,19 +61,20 @@ module.exports = {
     },
 
     getProfile(req, res) {
-        const id = req.body.sessionid;
         return user.findOne({
             where: {
-                id: id,
+                id: req.body.id,
                 account_type: 0
             },
-            exclude: ['createdAt', 'updatedAt']
+            attributes:{
+                exclude: ['password','createdAt', 'updatedAt']
+            }
         })
             .then((result) => {
-                if (result) {
-                    return res.status(200).send({error:false,message:'user found',data: result});
+                if (!result) {
+                    return res.status(200).send({error:true,message:'user not found',data: result});
                 }else{
-                    return res.status(404).send({error:true,message:'user not found',data: result});
+                    return res.status(200).send({error:false,message:'user found',data: result});
                 }
             })
     },
@@ -82,14 +89,15 @@ module.exports = {
             },
             {
                 where: {
-                    id: req.params.id
+                    id: req.body.id,
+                    account_type: 0
                 }
             })
             .then((result) => {
-               return res.status(200).send({error:false,message: 'Updated Successfully'});
+               return res.status(200).send({error:false,message: 'Updated Successfully',data:result});
             })
             .catch((err) => {
-                return res.status(404).send({error:true,message: err});
+                return res.status(200).send({error:true,message: err});
             })
     },
 

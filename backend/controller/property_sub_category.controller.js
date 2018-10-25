@@ -62,7 +62,23 @@ module.exports={
                 if (!result) {
                     return res.status(404).send({error:true,message:'Sub Categories not found'});
                 }else{
-                    return res.status(200).send({error:false,message:'Sub Categories found'});
+                    return res.status(200).send({error:false,message:'Sub Categories found',data:result});
+                }
+            })
+    },
+
+    getAllByCat(req,res){
+        return property_sub_cat.findAll({
+            where:{
+              cat_id: req.body.cat_id
+            },
+            exclude: ['createdAt', 'updatedAt']
+        })
+            .then((result) => {
+                if (!result) {
+                    return res.status(200).send({error:true,message:'Sub Categories not found'});
+                }else{
+                    return res.status(200).send({error:false,message:'Sub Categories found',data:result});
                 }
             })
     },

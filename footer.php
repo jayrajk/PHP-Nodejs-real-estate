@@ -13,7 +13,7 @@
                         <p>Lorem ipsum dolor cum necessitatibus su quisquam molestias. Vel unde, blanditiis.</p>
                         <ul class="footer-adress">
                             <li><i class="pe-7s-map-marker strong"> </i> Vip plaza, Althan, Surat, Gujarat, India - 395017 </li>
-                            <li><i class="pe-7s-mail strong"> </i> jkestate@company.com </li>
+                            <li><i class="pe-7s-mail strong"> </i> garoestate@company.com </li>
                             <li><i class="pe-7s-call strong"> </i> +1 800 138 100</li>
                         </ul>
                     </div>
@@ -21,57 +21,6 @@
                 <div class="col-md-4 col-sm-8 wow fadeInRight animated">
 
                 </div>
-                <!--<div class="col-md-3 col-sm-6 wow fadeInRight animated">
-                    <div class="single-footer">
-                        <h4>Last News</h4>
-                        <div class="footer-title-line"></div>
-                        <ul class="footer-blog">
-                            <li>
-                                <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
-                                    <a href="single.html">
-                                        <img src="assets/img/demo/small-proerty-2.jpg">
-                                    </a>
-                                    <span class="blg-date">12-12-2016</span>
-
-                                </div>
-                                <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
-                                    <h6> <a href="single.html">Add news functions </a></h6>
-                                    <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet, nulla ...</p>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
-                                    <a href="single.html">
-                                        <img src="assets/img/demo/small-proerty-2.jpg">
-                                    </a>
-                                    <span class="blg-date">12-12-2016</span>
-
-                                </div>
-                                <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
-                                    <h6> <a href="single.html">Add news functions </a></h6>
-                                    <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet, nulla ...</p>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
-                                    <a href="single.html">
-                                        <img src="assets/img/demo/small-proerty-2.jpg">
-                                    </a>
-                                    <span class="blg-date">12-12-2016</span>
-
-                                </div>
-                                <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
-                                    <h6> <a href="single.html">Add news functions </a></h6>
-                                    <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet, nulla ...</p>
-                                </div>
-                            </li>
-
-
-                        </ul>
-                    </div>
-                </div>-->
                 <div class="col-md-4 col-sm-8 wow fadeInRight animated">
                     <div class="single-footer">
                         <h4>Quick links </h4>
@@ -260,7 +209,9 @@
                                 swal(result.message,'','error');
                             }else{
                                 swal('Welcome '+result.data.name.split(' ')[0],'','success');
-                                sessionStorage.setItem('username',result.data.name.split(' ')[0]);
+                                sessionStorage.setItem('username',result.data.name);
+                                sessionStorage.setItem('useremail',result.data.email);
+                                sessionStorage.setItem('userid',result.data.id);
                                 window.location.href="index.php";
                             }
                         }
@@ -271,15 +222,17 @@
 
         if(sessionStorage.getItem('username') != null){
             $("#login").hide();
-            $("#logout").show();
-
+            $("#userprofile").show();
+            $("#profilename").replaceWith('<a href="#" class="dropdown-toggle" id="profilename" data-toggle="dropdown" data-hover="dropdown" data-delay="200">'+sessionStorage.getItem('username').split(' ')[0]+'</a>');
         }else if(sessionStorage.getItem('username') == null){
             $("#login").show();
-            $("#logout").hide();
+            $("#userprofile").hide();
         }
 
         $('#logout').click(function () {
-            sessionStorage.removeItem('username');
+            sessionStorage.clear();
+            /*sessionStorage.removeItem('useremail');
+            sessionStorage.removeItem('userid');*/
             window.location.href = "register.php";
         })
     })

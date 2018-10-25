@@ -120,11 +120,11 @@
     <script type="text/javascript">
         if(sessionStorage.getItem('username') != null){
             $("#login").hide();
-            $("#logout").show();
+            $("#userprofile").show();
             window.history.back();
         }else if(sessionStorage.getItem('username') == null){
             $("#login").show();
-            $("#logout").hide();
+            $("#userprofile").hide();
         }
     </script>
 

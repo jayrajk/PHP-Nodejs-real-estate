@@ -21,7 +21,7 @@ router.route('/checkuser')
 
 router.route('/profile')
 // GET /api/users/profile. all the users.
-    .get(userController.getProfile);
+    .post(userController.getProfile);
 
 router.route('/:id')
 // GET /api/users/:userId. all the users.

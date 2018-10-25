@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>JK ESTATE | Home page</title>
+        <title>Garo ESTATE | Home page</title>
         <meta name="description" content="GARO is a real-estate template">
         <meta name="author" content="Kimarotec">
         <meta name="keyword" content="html5, css, bootstrap, property, real-estate theme , bootstrap template">
@@ -249,7 +249,7 @@
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
                                         <!-- /.feature title -->
-                                        <h2>JK ESTATE </h2>
+                                        <h2>Garo ESTATE </h2>
                                     </div>
                                 </div>
                             </div>
@@ -408,7 +408,7 @@
         </div>
 
         <!-- Footer area-->
-       <?php include "footer.php"; ?>
+       <?php include "footer.php"; ?>f
 
     </body>
 </html>
