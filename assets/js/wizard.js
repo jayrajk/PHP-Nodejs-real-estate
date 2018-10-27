@@ -28,7 +28,11 @@ $(document).ready(function () {
             if (index == 1) {
                 return validateFirstStep();
             } else if (index == 2) {
-                return validateSecondStep();
+                if(!$('#parking').val()) {
+                    $('#parking').focus();
+                    return false;
+                }
+                return true
             } else if (index == 3) {
                 return validateThirdStep();
             } //etc. 
@@ -60,13 +64,13 @@ $(document).ready(function () {
         readURL(this);
     });
 
-    /*$('[data-toggle="wizard-radio"]').click(function () {
+    $('[data-toggle="wizard-radio"]').click(function () {
         wizard = $(this).closest('.wizard-card');
         wizard.find('[data-toggle="wizard-radio"]').removeClass('active');
         $(this).addClass('active');
         $(wizard).find('[type="radio"]').removeAttr('checked');
         $(this).find('[type="radio"]').attr('checked', 'true');
-    });*/
+    });
 
     $('[data-toggle="wizard-checkbox"]').click(function () {
         if ($(this).hasClass('active')) {
@@ -93,6 +97,9 @@ function validateFirstStep() {
                 selectcheck : true
             },
             property_ty: "required",
+            subcategory: {
+                selectcheck : true
+            },
             city:{
                 selectcheck : true
             },
@@ -104,6 +111,7 @@ function validateFirstStep() {
             user_type: "Please select user",
             propt: "Please select property for",
             property_ty: "Please select property type",
+            subcategory:"Please select sub category type",
             city: "Please select city",
             project_name:"Please enter project name",
             locality:"Please enter locality",

@@ -51,6 +51,7 @@
 
 </div>
 
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script src="assets/js/jquery.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script src="assets/js/modernizr-2.6.2.min.js"></script>
@@ -235,6 +236,7 @@
             sessionStorage.removeItem('userid');*/
             window.location.href = "register.php";
         })
+
     })
 
 </script>

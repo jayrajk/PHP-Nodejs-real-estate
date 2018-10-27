@@ -36,20 +36,12 @@ module.exports = {
         type: Sequelize.STRING(30),
           allowNull: true,
       },
-      total_floors: {
-        type: Sequelize.INTEGER,
-          allowNull: false,
-      },
       reserved_parking: {
         type: Sequelize.STRING(10),
           allowNull: false,
       },
       availability: {
         type: Sequelize.STRING(20),
-          allowNull: false,
-      },
-      possession_by: {
-        type: Sequelize.STRING(25),
           allowNull: false,
       },
       ownership: {

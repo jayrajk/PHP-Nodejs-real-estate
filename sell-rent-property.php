@@ -113,10 +113,14 @@
                                     <div class="col-sm-12">
                                         <div class="col-sm-3">
                                             <label for="property_ty">Property Type:</label><br>
-                                            <input type="radio" class="form-control" name="property_ty" id="property_ty" value="41cc2ccf-3852-40be-a85a-113bc9393185">
+                                            <div id="propdivres">
+                                            <input type="radio" class="form-control" name="property_ty" id="residential" value="41cc2ccf-3852-40be-a85a-113bc9393185">
                                             <small>Residential</small>
-                                            <input type="radio" class="form-control" name="property_ty" id="property_ty" value="fb9a7754-80f8-4b56-b587-8aebf854db38">
+                                            </div>
+                                            <div id="propdivcom">
+                                            <input type="radio" class="form-control " name="property_ty" onclick="xyz()" id="commercial" value="fb9a7754-80f8-4b56-b587-8aebf854db38">
                                             <small>Commercial</small>
+                                            </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <label for="subcategory">Select Type:</label>
@@ -204,19 +208,19 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label for="bedrooms">Bedrooms:</label>
-                                                <input type="text" class="form-control" id="bedrooms" name="bedrooms" maxlength="1">
+                                                <input type="number" class="form-control" id="bedrooms" required data-errormessage-value-missing="Please input something" name="bedrooms" maxlength="1">
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label for="bathrooms">Bathrooms:</label>
-                                                <input type="number" class="form-control" id="bathrooms" name="bathrooms" maxlength="1">
+                                                <input type="number" class="form-control" id="bathrooms" required name="bathrooms" maxlength="1">
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label for="balconies">Balconies:</label>
-                                                <input type="number" class="form-control" id="balconies" name="balconies" maxlength="1">
+                                                <input type="number" class="form-control" id="balconies" required name="balconies" maxlength="1">
                                             </div>
                                         </div>
                                     </div>
@@ -243,26 +247,26 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label for="availability">Availability:</label>
-                                                <select id="availability" name="availability" class="selectpicker" title="Select">
+                                                <select id="availability" name="availability" required class="selectpicker" title="Select">
                                                     <option value="Under Construction">Under Construction</option>
                                                     <option value="Ready to Move">Ready to Move</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2" id="availability_type">
+                                        <!--<div class="col-sm-2" id="availability_type">
                                             <div class="form-group">
                                                 <label for="type"></label>
-                                                <select id="type" name="type" class="selectpicker" title="Select">
+                                                <select id="type" name="type" required class="selectpicker" title="Select">
 
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label for="ownership">Ownership:</label>
-                                                <select id="ownership" name="ownership" class="selectpicker" title="Select">
+                                                <select id="ownership" name="ownership" required class="selectpicker" title="Select">
                                                     <option value="freeshold">Freeshold</option>
                                                     <option value="leasehold">Leasehold</option>
                                                 </select>
@@ -273,7 +277,7 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label for="price">Expected Price:</label>
-                                                <input type="number" class="form-control" name="price" id="price">
+                                                <input type="number" class="form-control" required name="price" id="price">
                                             </div>
                                         </div>
                                     </div>
@@ -418,7 +422,7 @@
                                              <div class="col-sm-12">
                                                  <div class="form-group">
                                                      <label for="description">Property Description :</label>
-                                                     <textarea name="discription" id="description" class="form-control" rows="5"></textarea>
+                                                     <textarea name="discription" id="description" required class="form-control" rows="5"></textarea>
                                                  </div>
                                              </div>
                                         </div>
@@ -444,7 +448,7 @@
 
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"/> <strong>Accept termes and
+                                                    <input type="checkbox"/><strong>Accept termes and
                                                         conditions.</strong>
                                                 </label>
                                             </div>
@@ -460,7 +464,7 @@
                             <div class="wizard-footer">
                                 <div class="pull-right">
                                     <input type='button' class='btn btn-next btn-primary' name='next' id="next" value='Next'/>
-                                    <input type='button' class='btn btn-finish btn-primary ' name='finish'
+                                    <input type='button' class='btn btn-finish btn-primary ' id="btnfinish" name='finish'
                                            value='Finish'/>
                                 </div>
 
@@ -496,13 +500,20 @@
             return (value != '0');
         });
 
-        // function propType() {
-        //     var pro = $('input:radio[name=property_ty]:checked').val();
-        //     console.log(pro);
-        //     // $('#property_ty').change(function () {
-        //     //     alert('hello');
+       /* var element = document.getElementById('property_ty');
+        element.nextSibling.addEventListener('click', function () {
+            alert('clicked');
+        });*/
+    function xyz(){
+        document.getElementById('commercial').addEventListener('click', function () {
+            alert('commercial click');
+        });
+    }
+
+        $('#propdivcom').click(function(){
+            if($('#commercial:checked').val() != null){
                 var body = {
-                    cat_id: $('#property_ty').val()
+                    cat_id: $('#commercial:checked').val()
                 };
                 $.ajax({
                     url: 'http://127.0.0.1:4000/api/subcategory/searchBycategory',
@@ -515,12 +526,95 @@
                         if (result.error == true) {
                             alert(result.message);
                         } else {
-                            $('#subcategory select').empty();
+                            $('#subcategory').empty();
+                            var sc = "Select Sub-category"
+                            $('#subcategory').append('<option value='+0+'>'+sc+'</option>');
+                            for(i=0;i<result.data.length;i++){
+                                $('#subcategory').append('<option value='+result.data[i].id+'>'+result.data[i].title+'</option>')
+                            }
                         }
                     }
                 })
-            // })
-        // }
+            }
+        })
+
+        /*$('#availability').change(function () {
+            if($('#availability').val() == "Under Construction"){
+                $('#availability_type').empty();
+                $('#availability_type').append('<option value="Within 3 Months">'+"Within 3 Months"+'</option>');
+            }else if($('#availability').val() == "Ready to Move"){
+
+            }
+        })*/
+        
+        $('#btnfinish').click(function () {
+            var body = {
+                user_id: sessionStorage.getItem('userid'),
+                user_type: $('#user_type :checked').val(),
+                property_for: $('#propt').val(),
+                sale_type: $('#sell_type').val(),
+                city: $('#city').val(),
+                project_name : $('#project_name').val(),
+                locality: $('#locality').val(),
+                property_address: $('#address').val(),
+                built_up_area: $('#built_up').val(),
+                area_unit: $('#area_unit').val(),
+                bedrooms: $('#bedrooms').val(),
+                bathrooms: $('#bathrooms').val(),
+                balconies: $('#balconies').val(),
+                other_room: JSON.stringify({
+                    pooja_room: $('#pooja_room').val(),
+                    study_room: $('#study_room').val(),
+                    servant_room: $('#servant_room').val(),
+                    store_room: $('#store_room').val()
+                }).toString(),
+                reserved_parking: $('#parking').val(),
+                availability: $('#availability').val(),
+                ownership: $('#ownership').val(),
+                expected_price: $('#price').val(),
+                brokerage: $('#brokerage').val(),
+                brokerage_type: $('#brokerage_type').val(),
+                amenities:{
+                    lift: $('#lift').val(),
+                    park: $('#park').val()
+                }.toString(),
+                power_backup: $('#power').val(),
+                water_source: {
+                    muncipal: $('#corporation').val(),
+                    borewrll: $('#borewell').val()
+                }.toString(),
+                overlooking: {
+                    garden : $('#garden').val(),
+                    main: $('#main').val(),
+                    club: $('#club').val(),
+                    pool: $('#pool').val()
+                }.toString(),
+                facing: $('#face').val(),
+                width_facing_road: $('#face_width').val(),
+                width_type: $('#width_type').val(),
+                floring_type: $('#flooring_type').val(),
+                furnishing_type: $('#furnishing').val(),
+                description: $('#description').val(),
+                property_image: $('#property-images').val()
+
+            };
+            $.ajax({
+                url: 'http://127.0.0.1:4000/api/property/insert',
+                type: 'POST',
+                data: JSON.stringify(body),
+                dataType: 'JSON',
+                contentType: 'application/json',
+                crossDomain: true,
+                success: function (result) {
+                    if (result.error == true) {
+                        swal(result.message,'','error');
+                    } else {
+                        swal(result.message,'','success');
+                    }
+                }
+            });
+        })
+
     });
 </script>
 

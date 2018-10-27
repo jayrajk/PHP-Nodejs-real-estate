@@ -32,12 +32,8 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
       },
       other_room: {
-          type: DataTypes.STRING(30),
+          type: DataTypes.STRING(150),
           allowNull: true,
-      },
-      total_floors: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
       },
       reserved_parking: {
           type: DataTypes.STRING(10),
@@ -45,10 +41,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       availability: {
           type: DataTypes.STRING(20),
-          allowNull: false,
-      },
-      possession_by: {
-          type: DataTypes.STRING(25),
           allowNull: false,
       },
       ownership: {

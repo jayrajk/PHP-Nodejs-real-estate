@@ -72,7 +72,9 @@ module.exports={
             where:{
               cat_id: req.body.cat_id
             },
-            exclude: ['createdAt', 'updatedAt']
+            attributes:{
+                exclude: ['createdAt', 'updatedAt']
+            }
         })
             .then((result) => {
                 if (!result) {

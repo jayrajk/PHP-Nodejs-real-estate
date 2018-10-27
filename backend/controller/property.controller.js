@@ -104,10 +104,8 @@ module.exports = {
             bathrooms:req.body.bathrooms,
             balconies:req.body.balconies,
             other_room: req.body.other_room,
-            total_floors: req.body.total_floors,
             reserved_parking: req.body.reserved_parking,
             availability: req.body.availability,
-            possession_by: req.body.possession_by,
             ownership: req.body.ownership,
             expected_price: req.body.expected_price,
             brokerage: req.body.brokerage,
@@ -125,8 +123,11 @@ module.exports = {
             property_image: req.body.property_image,
         })
             .then((result) => {
-                if (result !== null) {
-                    return property.update({
+            if (!result){
+                    return res.status(200).send({error:true,message: 'Error while adding property'});
+                }
+                else {
+                    return property.create({
                         user_id: req.body.user_id,
                         user_type: req.body.user_type,
                         property_for: req.body.property_for,
@@ -140,21 +141,19 @@ module.exports = {
                         property_address: req.body.property_address
                     })
                         .then((prop)=>{
-                            if(prop !== null){
-                                return res.status(200).send({error:false,message: 'Added Successfully'});
+                            if(!prop){
+                                return res.status(200).send({error:true,message: 'Error while adding property'});
                             }else{
-                                return res.status(404).send({error:true,message: 'Error while adding property'});
+                                return res.status(200).send({error:false,message: 'Property added Successfully'});
                             }
                         })
-                        .catch(()=>{
-                            return Promise.reject(new APIError('No proper data inserted', httpStatus.NOT_FOUND, true))
+                        .catch((err)=>{
+                            return res.status(200).send({error:true,message:err});
                         })
-                }else{
-                    return res.status(404).send({error:true,message: 'Error while adding property'});
                 }
             })
-            .catch(() => {
-                return Promise.reject(new APIError('No proper data inserted', httpStatus.NOT_FOUND, true))
+            .catch((err) => {
+                return res.status(200).send({error:true,message:err});
             })
 
     },
