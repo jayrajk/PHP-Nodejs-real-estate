@@ -113,14 +113,10 @@
                                     <div class="col-sm-12">
                                         <div class="col-sm-3">
                                             <label for="property_ty">Property Type:</label><br>
-                                            <div id="propdivres">
                                             <input type="radio" class="form-control" name="property_ty" id="residential" value="41cc2ccf-3852-40be-a85a-113bc9393185">
                                             <small>Residential</small>
-                                            </div>
-                                            <div id="propdivcom">
-                                            <input type="radio" class="form-control " name="property_ty" onclick="xyz()" id="commercial" value="fb9a7754-80f8-4b56-b587-8aebf854db38">
+                                            <input type="radio" class="form-control " name="property_ty" id="commercial" value="fb9a7754-80f8-4b56-b587-8aebf854db38">
                                             <small>Commercial</small>
-                                            </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <label for="subcategory">Select Type:</label>
@@ -500,59 +496,68 @@
             return (value != '0');
         });
 
-       /* var element = document.getElementById('property_ty');
+        var element = document.getElementById('commercial');
         element.nextSibling.addEventListener('click', function () {
-            alert('clicked');
-        });*/
-    function xyz(){
-        document.getElementById('commercial').addEventListener('click', function () {
-            alert('commercial click');
-        });
-    }
-
-        $('#propdivcom').click(function(){
-            if($('#commercial:checked').val() != null){
-                var body = {
-                    cat_id: $('#commercial:checked').val()
-                };
-                $.ajax({
-                    url: 'http://127.0.0.1:4000/api/subcategory/searchBycategory',
-                    type: 'POST',
-                    data: JSON.stringify(body),
-                    dataType: 'JSON',
-                    contentType: 'application/json',
-                    crossDomain: true,
-                    success: function (result) {
-                        if (result.error == true) {
-                            alert(result.message);
-                        } else {
-                            $('#subcategory').empty();
-                            var sc = "Select Sub-category"
-                            $('#subcategory').append('<option value='+0+'>'+sc+'</option>');
-                            for(i=0;i<result.data.length;i++){
-                                $('#subcategory').append('<option value='+result.data[i].id+'>'+result.data[i].title+'</option>')
-                            }
+            var body = {
+                cat_id: $('#commercial:checked').val()
+            };
+            $.ajax({
+                url: 'http://127.0.0.1:4000/api/subcategory/searchBycategory',
+                type: 'POST',
+                data: JSON.stringify(body),
+                dataType: 'JSON',
+                contentType: 'application/json',
+                crossDomain: true,
+                success: function (result) {
+                    if (result.error == true) {
+                        alert(result.message);
+                    } else {
+                        $('#subcategory').empty();
+                        var sc = "Select Sub-category"
+                        $('#subcategory').append('<option value='+0+'>'+sc+'</option>');
+                        for(i=0;i<result.data.length;i++){
+                            $('#subcategory').append('<option value='+result.data[i].id+'>'+result.data[i].title+'</option>')
                         }
                     }
-                })
-            }
-        })
+                }
+            })
+        });
 
-        /*$('#availability').change(function () {
-            if($('#availability').val() == "Under Construction"){
-                $('#availability_type').empty();
-                $('#availability_type').append('<option value="Within 3 Months">'+"Within 3 Months"+'</option>');
-            }else if($('#availability').val() == "Ready to Move"){
+        var element1 = document.getElementById('residential');
+        element1.nextSibling.addEventListener('click', function () {
+            var body = {
+                cat_id: $('#residential:checked').val()
+            };
+            $.ajax({
+                url: 'http://127.0.0.1:4000/api/subcategory/searchBycategory',
+                type: 'POST',
+                data: JSON.stringify(body),
+                dataType: 'JSON',
+                contentType: 'application/json',
+                crossDomain: true,
+                success: function (result) {
+                    if (result.error == true) {
+                        alert(result.message);
+                    } else {
+                        $('#subcategory').empty();
+                        var sc = "Select Sub-category"
+                        $('#subcategory').append('<option value='+0+'>'+sc+'</option>');
+                        for(i=0;i<result.data.length;i++){
+                            $('#subcategory').append('<option value='+result.data[i].id+'>'+result.data[i].title+'</option>')
+                        }
+                    }
+                }
+            })
+        });
 
-            }
-        })*/
-        
         $('#btnfinish').click(function () {
             var body = {
                 user_id: sessionStorage.getItem('userid'),
-                user_type: $('#user_type :checked').val(),
+                user_type: sessionStorage.getItem('user_type'),
                 property_for: $('#propt').val(),
                 sale_type: $('#sell_type').val(),
+                property_cat_id: sessionStorage.getItem('property_ty'),
+                property_sub_cat_id: $('#subcategory :selected').val(),
                 city: $('#city').val(),
                 project_name : $('#project_name').val(),
                 locality: $('#locality').val(),
@@ -574,21 +579,21 @@
                 expected_price: $('#price').val(),
                 brokerage: $('#brokerage').val(),
                 brokerage_type: $('#brokerage_type').val(),
-                amenities:{
+                amenities:JSON.stringify({
                     lift: $('#lift').val(),
                     park: $('#park').val()
-                }.toString(),
+                }).toString(),
                 power_backup: $('#power').val(),
-                water_source: {
+                water_source: JSON.stringify({
                     muncipal: $('#corporation').val(),
                     borewrll: $('#borewell').val()
-                }.toString(),
-                overlooking: {
+                }).toString(),
+                overlooking: JSON.stringify({
                     garden : $('#garden').val(),
                     main: $('#main').val(),
                     club: $('#club').val(),
                     pool: $('#pool').val()
-                }.toString(),
+                }).toString(),
                 facing: $('#face').val(),
                 width_facing_road: $('#face_width').val(),
                 width_type: $('#width_type').val(),

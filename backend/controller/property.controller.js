@@ -138,7 +138,7 @@ module.exports = {
                         city: req.body.city,
                         project_name: req.body.project_name,
                         locality: req.body.locality,
-                        property_address: req.body.property_address
+                        property_address: req.body.property_address,
                     })
                         .then((prop)=>{
                             if(!prop){

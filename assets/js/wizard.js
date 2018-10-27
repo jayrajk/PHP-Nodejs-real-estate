@@ -26,13 +26,20 @@ $(document).ready(function () {
         },
         onNext: function (tab, navigation, index) {
             if (index == 1) {
+                var user_type = $('#user_type :checked').val();
+                var property_ty = null;
+                var subcategory = $('#subcategory').val();
+                sessionStorage.setItem('user_type',user_type);
+                if($('#commercial :checked').val()!=null){
+                    property_ty = $('#commercial :checked').val();
+                }else if($('#residential :checked').val()!=null){
+                    property_ty = $('#residential :checked').val();
+                }
+                sessionStorage.setItem('property_ty',property_ty);
+                sessionStorage.setItem('subcategory',subcategory);
                 return validateFirstStep();
             } else if (index == 2) {
-                if(!$('#parking').val()) {
-                    $('#parking').focus();
-                    return false;
-                }
-                return true
+                return validateSecondStep();
             } else if (index == 3) {
                 return validateThirdStep();
             } //etc. 
@@ -64,13 +71,13 @@ $(document).ready(function () {
         readURL(this);
     });
 
-    $('[data-toggle="wizard-radio"]').click(function () {
+    /*$('[data-toggle="wizard-radio"]').click(function () {
         wizard = $(this).closest('.wizard-card');
         wizard.find('[data-toggle="wizard-radio"]').removeClass('active');
         $(this).addClass('active');
         $(wizard).find('[type="radio"]').removeAttr('checked');
         $(this).find('[type="radio"]').attr('checked', 'true');
-    });
+    });*/
 
     $('[data-toggle="wizard-checkbox"]').click(function () {
         if ($(this).hasClass('active')) {
